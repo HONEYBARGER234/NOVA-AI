@@ -3,98 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOVA — AI for Everyone</title>
+  <title>NOVA AI</title>
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: Arial, sans-serif;
-      background: #09090b;
+      background: #0b0d12;
       color: #fff;
-      min-height: 100vh;
+      height: 100vh;
+      overflow: hidden;
     }
 
     .app {
       display: flex;
-      min-height: 100vh;
+      height: 100vh;
     }
 
     /* SIDEBAR */
     .sidebar {
       width: 250px;
-      background: #111114;
-      border-right: 1px solid #27272a;
-      padding: 20px;
+      background: #11141b;
+      border-right: 1px solid #252936;
+      padding: 20px 15px;
       display: flex;
       flex-direction: column;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 35px;
-    }
-
-    .logo-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      display: grid;
-      place-items: center;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .logo h2 {
-      font-size: 21px;
-      letter-spacing: 1px;
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
     }
 
     .new-chat {
       width: 100%;
       padding: 13px;
-      border: 1px solid #3f3f46;
-      background: #18181b;
+      border: 1px solid #303541;
+      border-radius: 12px;
+      background: #181c25;
       color: white;
-      border-radius: 10px;
       cursor: pointer;
-      font-size: 14px;
       margin-bottom: 25px;
+      font-size: 15px;
     }
 
     .new-chat:hover {
-      background: #27272a;
+      background: #222733;
     }
 
-    .nav-title {
-      color: #71717a;
-      font-size: 11px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
     }
 
-    .nav-item {
-      padding: 11px;
-      border-radius: 9px;
-      color: #a1a1aa;
-      margin-bottom: 5px;
+    .menu button {
+      background: transparent;
+      border: none;
+      color: #aeb4c2;
+      text-align: left;
+      padding: 12px;
+      border-radius: 10px;
       cursor: pointer;
+      font-size: 15px;
     }
 
-    .nav-item:hover,
-    .nav-item.active {
-      background: #1f1f23;
+    .menu button:hover {
+      background: #1a1e27;
       color: white;
     }
 
-    .sidebar-bottom {
+    .bottom-menu {
       margin-top: auto;
     }
 
@@ -108,119 +94,132 @@
 
     .topbar {
       height: 65px;
-      border-bottom: 1px solid #27272a;
+      border-bottom: 1px solid #252936;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 25px;
     }
 
-    .model {
-      color: #a1a1aa;
-      font-size: 14px;
+    .topbar-title {
+      font-size: 17px;
+      font-weight: 600;
     }
 
     .profile {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: #27272a;
-      display: grid;
-      place-items: center;
-      font-size: 14px;
+      background: #272d3a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
 
     /* CHAT */
     .chat-area {
       flex: 1;
-      width: 100%;
-      max-width: 900px;
-      margin: auto;
-      padding: 45px 25px 20px;
-      display: flex;
-      flex-direction: column;
+      overflow-y: auto;
+      padding: 35px 20px 150px;
     }
 
     .welcome {
+      max-width: 850px;
+      margin: 70px auto 30px;
       text-align: center;
-      margin: auto 0;
-    }
-
-    .welcome-icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 20px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      display: grid;
-      place-items: center;
-      font-size: 30px;
-      font-weight: bold;
-      box-shadow: 0 0 40px rgba(124, 58, 237, .25);
     }
 
     .welcome h1 {
-      font-size: clamp(30px, 5vw, 48px);
+      font-size: 38px;
       margin-bottom: 12px;
     }
 
     .welcome p {
-      color: #a1a1aa;
-      font-size: 16px;
-      margin-bottom: 35px;
+      color: #9da4b3;
+      font-size: 17px;
     }
 
     .features {
+      max-width: 850px;
+      margin: 30px auto;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin-bottom: 30px;
     }
 
     .feature {
-      border: 1px solid #27272a;
-      background: #111114;
-      padding: 18px 12px;
-      border-radius: 13px;
-      text-align: left;
+      background: #12161e;
+      border: 1px solid #262b36;
+      padding: 18px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: .2s;
+      transition: 0.2s;
     }
 
     .feature:hover {
-      border-color: #52525b;
+      background: #191e28;
       transform: translateY(-2px);
-    }
-
-    .feature-icon {
-      font-size: 20px;
-      margin-bottom: 10px;
     }
 
     .feature strong {
       display: block;
-      font-size: 13px;
-      margin-bottom: 5px;
+      margin-bottom: 7px;
     }
 
     .feature span {
-      color: #71717a;
-      font-size: 11px;
+      color: #9299a8;
+      font-size: 13px;
+    }
+
+    /* MESSAGES */
+    .messages {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .message {
+      margin: 15px 0;
+      padding: 14px 17px;
+      border-radius: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .user-message {
+      background: #202631;
+      margin-left: auto;
+      max-width: 75%;
+    }
+
+    .ai-message {
+      background: #131820;
+      border: 1px solid #252b36;
+      max-width: 85%;
     }
 
     /* INPUT */
-    .input-wrapper {
-      background: #18181b;
-      border: 1px solid #3f3f46;
-      border-radius: 17px;
-      padding: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    .input-container {
+      position: fixed;
+      bottom: 20px;
+      left: 250px;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      padding: 0 20px;
+      pointer-events: none;
     }
 
-    .input-row {
+    .input-box {
+      width: min(850px, 100%);
+      background: #171b23;
+      border: 1px solid #303642;
+      border-radius: 18px;
       display: flex;
       align-items: flex-end;
-      gap: 10px;
+      padding: 10px;
+      pointer-events: auto;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.35);
     }
 
     textarea {
@@ -230,81 +229,73 @@
       outline: none;
       background: transparent;
       color: white;
+      padding: 10px;
       font-size: 15px;
       min-height: 45px;
-      max-height: 150px;
-      padding: 12px 5px;
-      font-family: inherit;
+      max-height: 130px;
     }
 
     textarea::placeholder {
-      color: #71717a;
+      color: #777f8f;
     }
 
-    .action-btn {
-      width: 43px;
-      height: 43px;
+    .input-button {
+      width: 40px;
+      height: 40px;
       border: none;
-      border-radius: 11px;
-      background: #27272a;
-      color: white;
+      border-radius: 10px;
+      background: transparent;
+      color: #aab1bf;
       cursor: pointer;
       font-size: 18px;
     }
 
-    .action-btn:hover {
-      background: #3f3f46;
+    .input-button:hover {
+      background: #252b35;
+      color: white;
     }
 
-    .send-btn {
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
+    .send {
+      background: white;
+      color: black;
+      font-weight: bold;
     }
 
-    .send-btn:hover {
-      opacity: .9;
+    .send:hover {
+      background: #ddd;
+      color: black;
     }
 
-    .disclaimer {
-      text-align: center;
-      color: #52525b;
-      font-size: 11px;
-      margin-top: 12px;
+    .loading {
+      color: #9299a8;
+      font-style: italic;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 800px) {
+    /* MOBILE */
+    @media (max-width: 750px) {
       .sidebar {
         display: none;
       }
 
-      .topbar {
-        padding: 0 15px;
-      }
-
-      .chat-area {
-        padding: 30px 15px 15px;
+      .input-container {
+        left: 0;
       }
 
       .features {
         grid-template-columns: repeat(2, 1fr);
       }
-    }
 
-    @media (max-width: 420px) {
       .welcome h1 {
         font-size: 30px;
       }
 
-      .welcome p {
-        font-size: 14px;
+      .chat-area {
+        padding-top: 20px;
       }
 
-      .features {
-        gap: 8px;
-      }
-
-      .feature {
-        padding: 14px 10px;
+      .user-message,
+      .ai-message {
+        max-width: 90%;
       }
     }
   </style>
@@ -317,139 +308,121 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <div class="logo">
-        <div class="logo-icon">N</div>
-        <h2>NOVA</h2>
-      </div>
+      <div class="logo">NOVA</div>
 
       <button class="new-chat" onclick="newChat()">
-        ＋ New chat
+        + New Chat
       </button>
 
-      <div class="nav-title">Workspace</div>
+      <div class="menu">
+        <button>💬 Chat</button>
+        <button>✨ Create</button>
+        <button>💻 Code</button>
+        <button>🔎 Research</button>
+        <button>📁 Files</button>
+      </div>
 
-      <div class="nav-item active">💬 Chat</div>
-      <div class="nav-item">🖼️ Create</div>
-      <div class="nav-item">💻 Code</div>
-      <div class="nav-item">🔎 Research</div>
-      <div class="nav-item">📁 Files</div>
-
-      <div class="sidebar-bottom">
-        <div class="nav-item">⚙️ Settings</div>
-        <div class="nav-item">❓ Help</div>
+      <div class="menu bottom-menu">
+        <button>⚙️ Settings</button>
+        <button>❓ Help</button>
       </div>
 
     </aside>
-
 
     <!-- MAIN -->
     <main class="main">
 
       <header class="topbar">
-        <div class="model">
-          NOVA AI
-        </div>
-
-        <div class="profile">
-          👤
-        </div>
+        <div class="topbar-title">NOVA AI</div>
+        <div class="profile">N</div>
       </header>
 
+      <section class="chat-area" id="chatArea">
 
-      <section class="chat-area">
-
-        <div class="welcome">
-
-          <div class="welcome-icon">
-            N
-          </div>
+        <div class="welcome" id="welcome">
 
           <h1>What can I help you build?</h1>
 
           <p>
-            Ask NOVA anything. Create, research, code and explore.
+            Ask NOVA anything. Create, code, research and explore.
           </p>
 
+        </div>
 
-          <div class="features">
+        <div class="features" id="features">
 
-            <div class="feature" onclick="usePrompt('Help me create an image')">
-              <div class="feature-icon">🖼️</div>
-              <strong>Create</strong>
-              <span>Images and creative ideas</span>
-            </div>
+          <div class="feature" onclick="usePrompt('Create an image idea for me')">
+            <strong>✨ Create</strong>
+            <span>Generate ideas and creative content.</span>
+          </div>
 
-            <div class="feature" onclick="usePrompt('Help me write some code')">
-              <div class="feature-icon">💻</div>
-              <strong>Code</strong>
-              <span>Build websites and apps</span>
-            </div>
+          <div class="feature" onclick="usePrompt('Help me write some code')">
+            <strong>💻 Code</strong>
+            <span>Build and debug software.</span>
+          </div>
 
-            <div class="feature" onclick="usePrompt('Research this topic for me')">
-              <div class="feature-icon">🔎</div>
-              <strong>Research</strong>
-              <span>Explore information</span>
-            </div>
+          <div class="feature" onclick="usePrompt('Research this topic for me')">
+            <strong>🔎 Research</strong>
+            <span>Explore information and explain it.</span>
+          </div>
 
-            <div class="feature" onclick="usePrompt('Help me analyze this file')">
-              <div class="feature-icon">📁</div>
-              <strong>Analyze</strong>
-              <span>Work with your files</span>
-            </div>
-
+          <div class="feature" onclick="usePrompt('Analyze this for me')">
+            <strong>📊 Analyze</strong>
+            <span>Understand and break things down.</span>
           </div>
 
         </div>
 
-
-        <!-- MESSAGE INPUT -->
-        <div class="input-wrapper">
-
-          <div class="input-row">
-
-            <button class="action-btn" title="Attach file">
-              ＋
-            </button>
-
-            <textarea
-              id="messageInput"
-              placeholder="Message NOVA..."
-              rows="1"
-              onkeydown="handleKey(event)"
-            ></textarea>
-
-            <button class="action-btn" title="Voice">
-              🎙️
-            </button>
-
-            <button
-              class="action-btn send-btn"
-              onclick="sendMessage()"
-              title="Send"
-            >
-              ↑
-            </button>
-
-          </div>
-
-        </div>
-
-        <div class="disclaimer">
-          NOVA can make mistakes. Check important information.
-        </div>
+        <div class="messages" id="messages"></div>
 
       </section>
+
+      <!-- INPUT -->
+      <div class="input-container">
+
+        <div class="input-box">
+
+          <button class="input-button" title="Attach">
+            +
+          </button>
+
+          <textarea
+            id="messageInput"
+            placeholder="Message NOVA..."
+            rows="1"
+            onkeydown="handleKey(event)"
+          ></textarea>
+
+          <button class="input-button" title="Voice">
+            🎙
+          </button>
+
+          <button
+            class="input-button send"
+            onclick="sendMessage()"
+            title="Send"
+          >
+            ↑
+          </button>
+
+        </div>
+
+      </div>
 
     </main>
 
   </div>
 
-
   <script>
-    const input = document.getElementById("messageInput");
 
-    function usePrompt(text) {
-      input.value = text;
+    const input = document.getElementById("messageInput");
+    const messages = document.getElementById("messages");
+    const welcome = document.getElementById("welcome");
+    const features = document.getElementById("features");
+    const chatArea = document.getElementById("chatArea");
+
+    function usePrompt(prompt) {
+      input.value = prompt;
       input.focus();
     }
 
@@ -460,20 +433,107 @@
       }
     }
 
-    function sendMessage() {
+    function addMessage(text, type) {
+
+      const message = document.createElement("div");
+
+      message.classList.add("message");
+
+      if (type === "user") {
+        message.classList.add("user-message");
+      } else {
+        message.classList.add("ai-message");
+      }
+
+      message.textContent = text;
+
+      messages.appendChild(message);
+
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      return message;
+    }
+
+    async function sendMessage() {
+
       const message = input.value.trim();
 
       if (!message) return;
 
-      alert("NOVA interface is ready. AI connection comes next.");
+      welcome.style.display = "none";
+      features.style.display = "none";
+
+      addMessage(message, "user");
 
       input.value = "";
+
+      const loading = addMessage("NOVA is thinking...", "ai");
+      loading.classList.add("loading");
+
+      try {
+
+        const response = await fetch("/api/chat", {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify({
+            message: message
+          })
+
+        });
+
+        const data = await response.json();
+
+        loading.remove();
+
+        if (!response.ok) {
+
+          addMessage(
+            "NOVA error: " +
+            (data.error || "Something went wrong."),
+            "ai"
+          );
+
+          return;
+        }
+
+        addMessage(
+          data.reply || "I couldn't generate a response.",
+          "ai"
+        );
+
+      } catch (error) {
+
+        loading.remove();
+
+        addMessage(
+          "NOVA couldn't connect to the AI server. Check that the backend is running.",
+          "ai"
+        );
+
+        console.error(error);
+
+      }
+
     }
 
     function newChat() {
+
+      messages.innerHTML = "";
+
+      welcome.style.display = "block";
+      features.style.display = "grid";
+
       input.value = "";
+
       input.focus();
+
     }
+
   </script>
 
 </body>
